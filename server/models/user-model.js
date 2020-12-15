@@ -35,13 +35,13 @@ const userSchema = new Schema({
 
 userSchema.methods.generateAuthenticationToken = async (user) => {
   const token = jwt.sign({ _id: user._id }, process.env.SECRET_TOKEN, {
-    expiresIn: "1h",
+    expiresIn: "4h",
   });
   return token;
 };
 
 //Function to find user for login
-userSchema.statics.findUser = async (username, password) => {
+userSchema.statics.verifyUser = async (username, password) => {
   const user = await User.findOne({ username: username.toLowerCase() });
   if (!user) {
     throw new Error("Unable to login!");

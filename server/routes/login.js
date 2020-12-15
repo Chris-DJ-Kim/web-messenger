@@ -6,13 +6,13 @@ const User = require("../models/user-model");
 router.post("/", async function (req, res) {
   try {
     const { username, password } = req.body;
-    const user = await User.findUser(username, password);
+    const user = await User.verifyUser(username, password);
     const token = await user.generateAuthenticationToken(user);
     //Also sends authentication cookie that lasts 1 hour
     res
       .status(200)
       .cookie("authToken", token, {
-        expires: new Date(Date.now() + 3600000),
+        expires: new Date(Date.now() + 14400000),
         httpOnly: true,
       })
       .send(user);
