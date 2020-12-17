@@ -1,13 +1,12 @@
-const createError = require("http-errors");
 const express = require("express");
 const { join } = require("path");
 const cookieParser = require("cookie-parser");
 const logger = require("morgan");
 
-const indexRouter = require("./routes/index");
 const pingRouter = require("./routes/ping");
 const signupRouter = require("./routes/signup");
 const loginRouter = require("./routes/login");
+const messagesRouter = require("./routes/messages");
 
 const db = require("./db");
 
@@ -23,6 +22,7 @@ app.use(express.static(join(__dirname, "public")));
 
 app.use("/signup", signupRouter);
 app.use("/login", loginRouter);
+app.use("/messages", messagesRouter);
 app.use("/ping", pingRouter);
 
 // error handler
