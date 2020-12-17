@@ -7,7 +7,7 @@ import Button from "@material-ui/core/Button";
 
 import formStyles from "../styles/form-styles";
 
-const FormTemplate = (props) => {
+const LandingForm = (props) => {
   //The prop "isSignup" will determine if this form is for the sign up form or the login form
   const [inputValues, setInputValues] = useState(
     props.isSignup
@@ -104,4 +104,4 @@ const FormTemplate = (props) => {
   );
 };
 
-export default withStyles(formStyles)(FormTemplate);
+export default withStyles(formStyles)(LandingForm);

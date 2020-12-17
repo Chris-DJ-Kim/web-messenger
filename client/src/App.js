@@ -3,7 +3,7 @@ import { MuiThemeProvider } from "@material-ui/core";
 import { BrowserRouter, Route, Switch } from "react-router-dom";
 
 import { theme } from "./themes/theme";
-import Main from "./pages/Main";
+import LandingPage from "./pages/Landing";
 import Messages from "./pages/Messages";
 
 import "./App.css";
@@ -15,12 +15,12 @@ function App() {
         <Switch>
           <Route
             path="/login"
-            render={(props) => <Main {...props} isSignup={false} />}
+            render={(props) => <LandingPage {...props} isSignup={false} />}
           />
           <Route path="/messages" component={Messages} />
           <Route
             path="/"
-            render={(props) => <Main {...props} isSignup={true} />}
+            render={(props) => <LandingPage {...props} isSignup={true} />}
           />
         </Switch>
       </BrowserRouter>
