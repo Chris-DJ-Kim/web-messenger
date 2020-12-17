@@ -1,15 +1,10 @@
 const formStyles = {
-  form: {
-    padding: "50px",
-    left: "50%",
-    top: "50%",
-    alignItems: "center",
-  },
-  backgroundImg: {
+  signupContainer: {
     height: "100%",
-    background: "linear-gradient(0deg, #3A8DFF 100%, #86B9FF 100%)",
-    opacity: "85%",
+    alignItems: "center",
+    justifyContent: "space-between",
+    display: "flex",
+    flexDirection: "column",
   },
 };
-
 export default formStyles;
