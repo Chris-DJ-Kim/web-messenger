@@ -1,71 +1,62 @@
-import React, { Component } from "react";
+import React, { useState } from "react";
+import { Redirect } from "react-router-dom";
+import axios from "axios";
+import FormTemplate from "../components/LandingForm.component";
 
-import { Typography } from "@material-ui/core";
+import Grid from "@material-ui/core/Grid";
 import { withStyles } from "@material-ui/core/styles";
-import { Route, Link } from "react-router-dom";
+import Typography from "@material-ui/core/Typography";
+import mainStyles from "../styles/main-styles";
+import SvgIcon from "@material-ui/core/SvgIcon";
+import { ReactComponent as Logo } from "../images/speechBubbleIcon.svg";
 
-import Ping from "./Ping";
+const LandingPage = (props) => {
+  const [signUpOrLoginSuccess, setSignUpOrLoginSuccess] = useState(false);
 
-const landinPageStyle = theme => ({
-  landingContainer: {
-    margin: theme.spacing.unit * 2
-  }
-});
-
-class LandingPage extends Component {
-  state = {
-    welcomeMessage: "Step 1: Run the server and refresh (not running)",
-    step: 0
+  const submitForm = async (event, path, inputs) => {
+    event.preventDefault();
+    try {
+      const response = await axios.post(path, inputs);
+      if (response.status === 201 || 200) setSignUpOrLoginSuccess(true);
+    } catch (e) {}
   };
 
-  componentDidMount() {
-    fetch("/welcome")
-      .then(res => {
-        console.log(res);
-        if (res.status === 200) return res.json();
-        else throw Error("Couldn't connect to the server");
-      })
-      .then(res => {
-        this.setState({ welcomeMessage: res.welcomeMessage });
-        this.incrementStep();
-      })
-      .catch(err => {
-        console.log(err.message);
-      });
+  //material-ui stuff
+  const { classes } = props;
+
+  //If user signs up successfully, redirects to messaging app
+  if (signUpOrLoginSuccess) {
+    return <Redirect to="/messages" />;
   }
+  return (
+    <Grid container spacing={0} style={{ height: "100vh" }}>
+      <Grid item xs={5} className={classes.backgroundImg}>
+        <div className={classes.colorOverlay}>
+          <Typography
+            variant="h2"
+            align="center"
+            style={{ color: "#ffffff", padding: "0 5vh" }}
+          >
+            <Typography style={{ color: "inherit" }}>
+              <SvgIcon
+                style={{ width: "5em", height: "5em", paddingBottom: "4vh" }}
+              >
+                <Logo />
+              </SvgIcon>
+            </Typography>
+            Converse with anyone with any language
+          </Typography>
+        </div>
+      </Grid>
+      <Grid item xs={7} align="center">
+        <FormTemplate
+          setSignUpSuccess={setSignUpOrLoginSuccess}
+          submitForm={submitForm}
+          isSignup={props.isSignup}
+        />
+      </Grid>
+    </Grid>
+  );
+};
 
-  incrementStep = () => {
-    this.setState(prevState => ({ step: (prevState.step += 1) }));
-  };
-
-  render() {
-    const { classes } = this.props;
-    return (
-      <div className={classes.landingContainer}>
-        <Typography>{this.state.welcomeMessage}</Typography>
-        {this.state.step >= 1 && (
-          <React.Fragment>
-            <Link to="/ping">Step 2: Click here </Link>
-            <Route
-              path="/ping"
-              render={props => {
-                return (
-                  <Ping
-                    {...props}
-                    incrementStep={this.incrementStep}
-                    step={this.state.step}
-                  />
-                );
-              }}
-            />
-          </React.Fragment>
-        )}
-        {this.state.step >= 3 && (
-          <Typography>All done! Now go make a pull request!</Typography>
-        )}
-      </div>
-    );
-  }
-}
-
-export default withStyles(landinPageStyle)(LandingPage);
+export default withStyles(mainStyles)(LandingPage);
