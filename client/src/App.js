@@ -4,7 +4,7 @@ import { BrowserRouter, Route, Switch } from "react-router-dom";
 
 import { theme } from "./themes/theme";
 import LandingPage from "./pages/Landing";
-import Messages from "./pages/Messages";
+import MessagePlatform from "./pages/MessagePlatform";
 
 import "./App.css";
 
@@ -17,7 +17,7 @@ function App() {
             path="/login"
             render={(props) => <LandingPage {...props} isSignup={false} />}
           />
-          <Route path="/messages" component={Messages} />
+          <Route path="/messages" component={MessagePlatform} />
           <Route
             path="/"
             render={(props) => <LandingPage {...props} isSignup={true} />}

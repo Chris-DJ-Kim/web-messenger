@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import { Redirect } from "react-router-dom";
 import axios from "axios";
-import FormTemplate from "../components/LandingForm.component";
+import LandingForm from "../components/landing-form";
 
 import Grid from "@material-ui/core/Grid";
 import { withStyles } from "@material-ui/core/styles";
@@ -28,6 +28,7 @@ const LandingPage = (props) => {
   if (signUpOrLoginSuccess) {
     return <Redirect to="/messages" />;
   }
+
   return (
     <Grid container spacing={0} style={{ height: "100vh" }}>
       <Grid item xs={5} className={classes.backgroundImg}>
@@ -49,7 +50,7 @@ const LandingPage = (props) => {
         </div>
       </Grid>
       <Grid item xs={7} align="center">
-        <FormTemplate
+        <LandingForm
           setSignUpSuccess={setSignUpOrLoginSuccess}
           submitForm={submitForm}
           isSignup={props.isSignup}

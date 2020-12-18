@@ -32,9 +32,15 @@ router.post("/", async function (req, res, next) {
     }
 
     //Only runs if no duplicate user exists
-
+    const token = await user.generateAuthenticationToken(user);
     await user.save();
-    res.status(201).send(user);
+    res
+      .status(201)
+      .cookie("authToken", token, {
+        expires: new Date(Date.now() + 14400000),
+        httpOnly: true,
+      })
+      .send(user);
   } catch (e) {
     if (e.message) {
       return res.status(400).send({ errorMessage: e.message });
