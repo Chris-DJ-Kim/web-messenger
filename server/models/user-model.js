@@ -31,7 +31,6 @@ const userSchema = new Schema({
       }
     },
   },
-  conversations: [{ type: Schema.Types.ObjectId, ref: "Conversation" }],
 });
 
 userSchema.methods.generateAuthenticationToken = async (user) => {

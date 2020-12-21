@@ -7,7 +7,8 @@ require("dotenv").config();
  * Module dependencies.
  */
 
-var app = require("../app");
+var appImport = require("../app");
+var { app, io } = appImport;
 var http = require("http");
 
 /**
@@ -34,20 +35,7 @@ server.on("listening", onListening);
 /**
  * Socket Io
  */
-var io = require("socket.io")(server);
-io.on("connection", (socket) => {
-  console.log("New user connected!");
-  socket.on("message", ({ sender, message }) => {
-    console.log(sender);
-    console.log(message);
-    socket.broadcast.emit("message", { sender, message });
-  });
-
-  socket.on("disconnect", () => {
-    console.log("user disconnected");
-  });
-});
-
+io.attach(server);
 /**
  * Normalize a port into a number, string, or false.
  */
