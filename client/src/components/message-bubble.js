@@ -6,10 +6,13 @@ import { withStyles } from "@material-ui/core/styles";
 import messageBubbleStyles from "../styles/message-bubble-styles";
 
 const MessageBubble = (props) => {
-  const { classes } = props;
+  const { classes, myMessage, message } = props;
   return (
     <ListItem button className={classes.messageBubble} alignItems="center">
-      <ListItemText style={{ textAlign: "center" }} primary={props.message} />
+      <ListItemText
+        style={myMessage ? { textAlign: "right" } : { textAlign: "left" }}
+        primary={message}
+      />
     </ListItem>
   );
 };

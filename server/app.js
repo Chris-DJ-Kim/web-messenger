@@ -30,17 +30,27 @@ io.on("connection", (socket) => {
   connectedUsers.push(socket.id);
   console.log(conversationRoom);
 
-  console.log(connectedUsers);
-  socket.on("message", ({ sender, message, roomId }) => {
-    console.log(sender);
-    console.log(message);
-    console.log(roomId);
-    io.to(roomId).emit("message", { sender, message });
-  });
+  console.log("on connect", connectedUsers);
+  socket.on(
+    "message",
+    ({ sender, message, roomId, createdAt, conversationId, _id }) => {
+      console.log(`sender:${sender}`);
+      console.log(`message:${message}`);
+      console.log(`roomId:${roomId}`);
+      io.to(roomId).emit("message", {
+        sender,
+        message,
+        createdAt,
+        conversationId,
+        _id,
+      });
+    }
+  );
 
   socket.on("disconnect", () => {
     connectedUsers.pop(socket.id);
-    console.log("user disconnected");
+    console.log("after disconnect", connectedUsers);
+    console.log(`${socket.id} disconnected`);
   });
 });
 

@@ -1,27 +1,24 @@
-import React, { useState, useEffect } from "react";
+import React, { useState } from "react";
 
 import Grid from "@material-ui/core/Grid";
 
-import MessagePanel from "../components/message-panel";
-import ConversationPanel from "../components/conversation-panel.js";
+import MessagePanel from "./message-panel";
+import ConversationPanel from "./conversation-panel.js";
 
-const clientIo = require("socket.io-client");
-// const socket = clientIo({
-//   query: { roomId: currentConversation.conversationId },
-// });
-
-const MessagePlatform = () => {
+const MessagePlatform = (props) => {
+  const {
+    socket,
+    isConnected,
+    currentConversation,
+    setCurrentConversation,
+  } = props;
   const [username, setUsername] = useState("");
-  const [currentConversation, setCurrentConversation] = useState("");
-
   const [
     currentConversationMessages,
     setCurrentConversationMessages,
   ] = useState([]);
   //currentConversation is the username of the 'other' user in a conversation
-  const socket = clientIo({
-    query: { roomId: currentConversation.conversationId },
-  });
+
   return (
     <Grid container spacing={0} style={{ height: "100vh" }}>
       <Grid xs={5} sm={4} md={3} item container direction="column">
@@ -40,6 +37,7 @@ const MessagePlatform = () => {
           username={username}
           currentConversationMessages={currentConversationMessages}
           setCurrentConversationMessages={setCurrentConversationMessages}
+          isConnected={isConnected}
           socket={socket}
         />
       </Grid>

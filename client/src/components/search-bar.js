@@ -18,20 +18,32 @@ const SearchBar = (props) => {
     socket,
   } = props;
   const [filteredUsers, setFilteredUsers] = useState([]);
-
+  const [searchValue, setSearchValue] = useState("");
   const handleChange = (event) => {
     const value = event.target.value;
+
+    setSearchValue(value);
+    console.log(searchValue);
     //To ensure you can't search for literally everyone by having a blank search bar
     //If a 'search all' feature is needed, remove if condition
 
-    //Also makes sure you can't search for yourself
+    //Makes sure you can't search for yourself
+    //Also filters out user if that user already exists in the conversation panel
     if (value.length > 0) {
-      setFilteredUsers(
-        allUsers.filter(
-          (username) =>
-            username.includes(value.toLowerCase()) && username !== currentUser
-        )
+      const tempFilter = allUsers.filter(
+        (username) =>
+          username.includes(value.toLowerCase()) && username !== currentUser
       );
+
+      if (!conversationRecipients) {
+        return;
+      }
+      const exists = (username) =>
+        conversationRecipients.find(
+          (conversation) => conversation.username === username
+        );
+      setFilteredUsers(tempFilter.filter((username) => !exists(username)));
+      console.log(filteredUsers);
     }
     if (value.length === 0) {
       setFilteredUsers([]);
@@ -46,6 +58,7 @@ const SearchBar = (props) => {
         fullWidth
         placeholder="Search for users"
         onChange={handleChange}
+        value={searchValue}
         InputProps={{
           startAdornment: (
             <InputAdornment position="start">
@@ -65,6 +78,8 @@ const SearchBar = (props) => {
           conversationRecipients={conversationRecipients}
           conversation={true}
           fromSearchBar={true}
+          setSearchValue={setSearchValue}
+          setFilteredUsers={setFilteredUsers}
           socket={socket}
         />
       ))}

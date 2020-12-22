@@ -45,6 +45,7 @@ const saveMessage = async (senderId, content, recipientName) => {
   existingConversation.messages.push(message._id);
   await message.save();
   await existingConversation.save();
+  return message;
 };
 
 module.exports = saveMessage;

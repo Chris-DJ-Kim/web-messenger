@@ -16,7 +16,7 @@ router.post("/", async function (req, res) {
     const { content, recipientName } = req.body;
 
     // const userTalkingTo = await User.findOne({ username: recipientName });
-    await saveMessage(req.user._id, content, recipientName);
+    const message = await saveMessage(req.user._id, content, recipientName);
     // //saveMessage must be before the the below
     // const conversation = await findConversation(
     //   req.user._id,
@@ -29,8 +29,7 @@ router.post("/", async function (req, res) {
     // // socket.on("connect", function () {
     // //   console.log("connected2");
     // // });
-
-    res.status(200).send("Message was saved");
+    res.status(200).send(message);
   } catch (e) {
     res.status(404).send(e);
   }

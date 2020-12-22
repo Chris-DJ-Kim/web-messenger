@@ -8,7 +8,7 @@ import SearchBar from "../components/search-bar";
 
 const ConversationPanel = (props) => {
   const [allUsers, setAllUsers] = useState([]);
-  const [conversationRecipients, setConversationRecipients] = useState([]);
+  const [conversations, setConversations] = useState([]);
   const {
     setCurrentConversation,
     currentConversation,
@@ -19,9 +19,10 @@ const ConversationPanel = (props) => {
   } = props;
   useEffect(() => {
     //Gets all conversations the current user has
-    const getConversationRecipients = async () => {
+    const getConversations = async () => {
       const response = await axios.get("/conversations");
-      setConversationRecipients(response.data.conversations);
+      setConversations(response.data.conversations);
+      console.log("Retrieved conversations", response.data.conversations);
       setUsername(response.data.username);
     };
     //Gets all users in messaging app for search feature
@@ -29,9 +30,10 @@ const ConversationPanel = (props) => {
       const response = await axios.get("/conversations/allUsers");
       setAllUsers(response.data);
     };
-    getConversationRecipients();
+    getConversations();
     getAllUsers();
   }, [setUsername]);
+
   return (
     <List
       style={{
@@ -47,13 +49,13 @@ const ConversationPanel = (props) => {
         currentConversation={currentConversation}
         setCurrentConversation={setCurrentConversation}
         setCurrentConversationMessages={setCurrentConversationMessages}
-        setConversationRecipients={setConversationRecipients}
-        conversationRecipients={conversationRecipients}
+        setConversationRecipients={setConversations}
+        conversationRecipients={conversations}
         currentUser={username}
         conversationId={currentConversation.conversationId}
         socket={socket}
       />
-      {conversationRecipients.map((recipient, index) => (
+      {conversations.map((recipient, index) => (
         <ConversationCard
           user={recipient.username}
           conversationId={recipient.conversationId}
@@ -61,6 +63,7 @@ const ConversationPanel = (props) => {
           setCurrentConversation={setCurrentConversation}
           currentConversation={currentConversation}
           setCurrentConversationMessages={setCurrentConversationMessages}
+          conversationRecipients={conversations}
           conversation={true}
           socket={socket}
         />
