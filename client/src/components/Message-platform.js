@@ -14,11 +14,11 @@ const MessagePlatform = (props) => {
   } = props;
   const [username, setUsername] = useState("");
   const [
-    currentConversationMessages,
-    setCurrentConversationMessages,
+    currentConversationRetrievedMessages,
+    setCurrentConversationRetrievedMessages,
   ] = useState([]);
-  //currentConversation is the username of the 'other' user in a conversation
 
+  //currentConversation is the username of the 'other' user in a conversation
   return (
     <Grid container spacing={0} style={{ height: "100vh" }}>
       <Grid xs={5} sm={4} md={3} item container direction="column">
@@ -27,7 +27,9 @@ const MessagePlatform = (props) => {
           currentConversation={currentConversation}
           username={username}
           setUsername={setUsername}
-          setCurrentConversationMessages={setCurrentConversationMessages}
+          setCurrentConversationRetrievedMessages={
+            setCurrentConversationRetrievedMessages
+          }
           socket={socket}
         />
       </Grid>
@@ -35,8 +37,9 @@ const MessagePlatform = (props) => {
         <MessagePanel
           currentConversation={currentConversation}
           username={username}
-          currentConversationMessages={currentConversationMessages}
-          setCurrentConversationMessages={setCurrentConversationMessages}
+          currentConversationRetrievedMessages={
+            currentConversationRetrievedMessages
+          }
           isConnected={isConnected}
           socket={socket}
         />

@@ -37,7 +37,7 @@ io.on("connection", (socket) => {
       console.log(`sender:${sender}`);
       console.log(`message:${message}`);
       console.log(`roomId:${roomId}`);
-      io.to(roomId).emit("message", {
+      io.in(roomId).emit("message", {
         sender,
         message,
         createdAt,

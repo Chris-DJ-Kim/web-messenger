@@ -8,11 +8,18 @@ import messageBubbleStyles from "../styles/message-bubble-styles";
 const MessageBubble = (props) => {
   const { classes, myMessage, message } = props;
   return (
-    <ListItem button className={classes.messageBubble} alignItems="center">
-      <ListItemText
-        style={myMessage ? { textAlign: "right" } : { textAlign: "left" }}
-        primary={message}
-      />
+    <ListItem
+      style={
+        myMessage
+          ? { textAlign: "right", paddingLeft: "50vh" }
+          : { textAlign: "left", paddingRight: "50vh" }
+      }
+      button
+      disableTouchRipple
+      color="secondary"
+      className={classes.messageBubble}
+    >
+      <ListItemText primary={message} />
     </ListItem>
   );
 };

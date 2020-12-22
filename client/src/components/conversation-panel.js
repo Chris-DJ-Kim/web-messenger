@@ -5,6 +5,7 @@ import List from "@material-ui/core/List";
 
 import ConversationCard from "../components/conversation-card";
 import SearchBar from "../components/search-bar";
+import Typography from "@material-ui/core/Typography";
 
 const ConversationPanel = (props) => {
   const [allUsers, setAllUsers] = useState([]);
@@ -12,7 +13,7 @@ const ConversationPanel = (props) => {
   const {
     setCurrentConversation,
     currentConversation,
-    setCurrentConversationMessages,
+    setCurrentConversationRetrievedMessages,
     username,
     setUsername,
     socket,
@@ -44,11 +45,16 @@ const ConversationPanel = (props) => {
       }}
     >
       <ConversationCard user={username} conversation={false} />
+      <Typography variant="h4" style={{ padding: "1vh" }}>
+        Chats
+      </Typography>
       <SearchBar
         allUsers={allUsers}
         currentConversation={currentConversation}
         setCurrentConversation={setCurrentConversation}
-        setCurrentConversationMessages={setCurrentConversationMessages}
+        setCurrentConversationRetrievedMessages={
+          setCurrentConversationRetrievedMessages
+        }
         setConversationRecipients={setConversations}
         conversationRecipients={conversations}
         currentUser={username}
@@ -62,7 +68,9 @@ const ConversationPanel = (props) => {
           key={`${recipient.conversationId}_${index}`}
           setCurrentConversation={setCurrentConversation}
           currentConversation={currentConversation}
-          setCurrentConversationMessages={setCurrentConversationMessages}
+          setCurrentConversationRetrievedMessages={
+            setCurrentConversationRetrievedMessages
+          }
           conversationRecipients={conversations}
           conversation={true}
           socket={socket}

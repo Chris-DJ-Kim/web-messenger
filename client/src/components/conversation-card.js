@@ -14,7 +14,7 @@ const ConversationCard = (props) => {
     classes,
     currentConversation,
     setCurrentConversation,
-    setCurrentConversationMessages,
+    setCurrentConversationRetrievedMessages,
     user,
     conversation,
     conversationId,
@@ -101,7 +101,7 @@ const ConversationCard = (props) => {
     if (currentConversation) {
       if (currentConversation.conversationId !== conversationId) {
         setCurrentConversation({ conversationId: conversationId, user: user });
-        setCurrentConversationMessages(messages);
+        setCurrentConversationRetrievedMessages(messages);
         //Closes current socket connection when moving to new conversation
       }
       if (socket) {
@@ -111,7 +111,7 @@ const ConversationCard = (props) => {
 
     if (!currentConversation) {
       setCurrentConversation({ conversationId: conversationId, user: user });
-      setCurrentConversationMessages(messages);
+      setCurrentConversationRetrievedMessages(messages);
     }
     if (socket) {
       socket.close();

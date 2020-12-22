@@ -10,7 +10,7 @@ const SearchBar = (props) => {
   const {
     allUsers,
     setCurrentConversation,
-    setCurrentConversationMessages,
+    setCurrentConversationRetrievedMessages,
     setConversationRecipients,
     conversationRecipients,
     currentUser,
@@ -73,7 +73,9 @@ const SearchBar = (props) => {
           user={user}
           conversationId={conversationId}
           setCurrentConversation={setCurrentConversation}
-          setCurrentConversationMessages={setCurrentConversationMessages}
+          setCurrentConversationRetrievedMessages={
+            setCurrentConversationRetrievedMessages
+          }
           setConversationRecipients={setConversationRecipients}
           conversationRecipients={conversationRecipients}
           conversation={true}

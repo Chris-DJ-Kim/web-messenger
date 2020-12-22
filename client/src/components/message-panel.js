@@ -1,18 +1,17 @@
 import React from "react";
 import axios from "axios";
 
-import List from "@material-ui/core/List";
 import Container from "@material-ui/core/Container";
+import Typography from "@material-ui/core/Typography";
 
 import MessageField from "./message-field";
-import MessageBubble from "./message-bubble";
+import MessageBubbleContainer from "./message-bubble-container";
 
 const MessagePanel = (props) => {
   const {
     username,
     currentConversation,
-    currentConversationMessages,
-    setCurrentConversationMessages,
+    currentConversationRetrievedMessages,
     socket,
     isConnected,
   } = props;
@@ -28,6 +27,7 @@ const MessagePanel = (props) => {
         recipientName: currentConversation.user,
       });
       if (response.status === 200) {
+        console.log("emitting message");
         socket.emit("message", {
           sender: username,
           message: message,
@@ -39,54 +39,21 @@ const MessagePanel = (props) => {
       }
     }
   };
-  if (isConnected) {
-    socket.on("message", (content) => {
-      setCurrentConversationMessages([
-        ...currentConversationMessages,
-        {
-          content: content.message,
-          sender: content.sender,
-          createdAt: content.createdAt,
-          conversationId: content.conversationId,
-          _id: content._id,
-        },
-      ]);
-    });
-  }
+  console.log("Message panel");
   return (
-    <Container style={{ height: "100%" }}>
-      {currentConversation.user}
-      <Container style={{ height: "75%" }}>
-        <List
-          style={{
-            overflow: "auto",
-            flexWrap: "nowrap",
-            height: "100%",
-            padding: "0",
-          }}
-        >
-          {currentConversationMessages.map((msg) => {
-            //So that style can be set conditionally on if the message is from the logged in user
-            //or is from someone else
-            if (msg.sender === username) {
-              return (
-                <MessageBubble
-                  key={msg._id}
-                  myMessage={true}
-                  message={msg.content}
-                />
-              );
-            }
-            return (
-              <MessageBubble
-                key={msg._id}
-                myMessage={false}
-                message={msg.content}
-              />
-            );
-          })}
-        </List>
-      </Container>
+    <Container style={{ height: "80vh" }}>
+      <Typography variant="h2" className="MuiTypography-alignLeft">
+        {currentConversation ? currentConversation.user : ""}
+      </Typography>
+      <MessageBubbleContainer
+        style={{ height: "100%", padding: "0" }}
+        username={username}
+        currentConversationRetrievedMessages={
+          currentConversationRetrievedMessages
+        }
+        isConnected={isConnected}
+        socket={socket}
+      />
       <MessageField sendMessage={sendMessage} />
     </Container>
   );
