@@ -34,9 +34,6 @@ io.on("connection", (socket) => {
   socket.on(
     "message",
     ({ sender, message, roomId, createdAt, conversationId, _id }) => {
-      console.log(`sender:${sender}`);
-      console.log(`message:${message}`);
-      console.log(`roomId:${roomId}`);
       io.in(roomId).emit("message", {
         sender,
         message,
@@ -49,8 +46,6 @@ io.on("connection", (socket) => {
 
   socket.on("disconnect", () => {
     connectedUsers.pop(socket.id);
-    console.log("after disconnect", connectedUsers);
-    console.log(`${socket.id} disconnected`);
   });
 });
 
