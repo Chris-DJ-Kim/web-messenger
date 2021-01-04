@@ -27,7 +27,6 @@ const MessagePanel = (props) => {
         recipientName: currentConversation.user,
       });
       if (response.status === 200) {
-        console.log("emitting message");
         socket.emit("message", {
           sender: username,
           message: message,
@@ -39,10 +38,13 @@ const MessagePanel = (props) => {
       }
     }
   };
-  console.log("Message panel");
   return (
     <Container style={{ height: "80vh" }}>
-      <Typography variant="h2" className="MuiTypography-alignLeft">
+      <Typography
+        variant="h2"
+        className="MuiTypography-alignLeft"
+        style={{ padding: "1vh" }}
+      >
         {currentConversation ? currentConversation.user : ""}
       </Typography>
       <MessageBubbleContainer

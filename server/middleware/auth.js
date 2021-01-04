@@ -13,7 +13,6 @@ const auth = async (req, res, next) => {
     const userID = decodedToken._id;
     const user = await User.findOne({ _id: userID });
     req.user = user;
-    console.log("Authenticated!");
     next();
   } catch (e) {
     return res.status(401).send({ errorMessage: "Authentication error!" });

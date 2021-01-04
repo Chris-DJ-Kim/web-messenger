@@ -31,27 +31,11 @@ const ConversationCard = (props) => {
       props.setFilteredUsers([]);
     }
 
-    //Doesn't set conversation if you are already on the chosen conversation
-    //Example: if im in a conversation with 'Jane' and I click on her conversation card
-    //I do not reset the current conversation
-    // console.log(currentConversation);
-    // if (currentConversation) {
-    //   if (currentConversation.conversationId !== conversationId) {
-    //     setCurrentConversation({ conversationId, user });
-    //     //Closes current socket connection when moving to new conversation
-    //     if (socket) {
-    //       socket.close();
-    //     }
-    //     return;
-    //   }
-    // }
-
     const response = await axios.get("/messages", {
       params: {
         conversationId: conversationId,
       },
     });
-    // console.log(response.data);
 
     //Cleans up the response before using
     const messages = response.data.map((message) => {
@@ -70,7 +54,6 @@ const ConversationCard = (props) => {
     const existingConversation = conversationRecipients.find(
       (conversation) => conversation.username === user
     );
-    console.log("exitingConversation?", existingConversation);
     if (!existingConversation) {
       const response = await axios.post("/conversations", {
         recipientName: user,
@@ -81,23 +64,14 @@ const ConversationCard = (props) => {
         { conversationId: conversationId, username: username },
       ]);
 
-      // setCurrentConversation({ conversationId: conversationId, user: user });
-      // setCurrentConversationMessages(messages);
-
-      // setCurrentConversation({
-      //   conversationId: conversationId,
-      //   user: username,
-      // });
       if (socket) {
         socket.close();
       }
       return;
     }
 
-    console.log(conversationId);
     //Runs if the conversation exists
 
-    console.log("currentConversation?", currentConversation);
     if (currentConversation) {
       if (currentConversation.conversationId !== conversationId) {
         setCurrentConversation({ conversationId: conversationId, user: user });
@@ -116,7 +90,6 @@ const ConversationCard = (props) => {
     if (socket) {
       socket.close();
     }
-    console.log("Should be close", socket);
   };
 
   return (

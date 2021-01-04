@@ -61,7 +61,6 @@ router.get("/", async function (req, res) {
       await getMessages();
     }
 
-    // console.log(req.user);
     //Client expects an array
     if (!conversationExists) {
       return res.status(200).send([]);

@@ -21,6 +21,7 @@ const MessageField = (props) => {
         fullWidth
         value={message}
         onChange={handleChange}
+        autoComplete="off"
       />
       <Button
         variant="contained"

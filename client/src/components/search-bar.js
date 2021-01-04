@@ -23,7 +23,6 @@ const SearchBar = (props) => {
     const value = event.target.value;
 
     setSearchValue(value);
-    console.log(searchValue);
     //To ensure you can't search for literally everyone by having a blank search bar
     //If a 'search all' feature is needed, remove if condition
 
@@ -43,7 +42,6 @@ const SearchBar = (props) => {
           (conversation) => conversation.username === username
         );
       setFilteredUsers(tempFilter.filter((username) => !exists(username)));
-      console.log(filteredUsers);
     }
     if (value.length === 0) {
       setFilteredUsers([]);

@@ -20,8 +20,6 @@ const MessageBubbleContainer = (props) => {
     socket.off("message");
 
     socket.on("message", (content) => {
-      console.log("message", content);
-
       setRealTimeMessages([
         ...realTimeMessages,
         {
@@ -35,7 +33,6 @@ const MessageBubbleContainer = (props) => {
       //   }
     });
   }
-  console.log("message bubble container!");
   if (realTimeMessages.length > 0) {
     return (
       <List

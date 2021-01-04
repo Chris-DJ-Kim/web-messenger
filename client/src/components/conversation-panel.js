@@ -23,7 +23,6 @@ const ConversationPanel = (props) => {
     const getConversations = async () => {
       const response = await axios.get("/conversations");
       setConversations(response.data.conversations);
-      console.log("Retrieved conversations", response.data.conversations);
       setUsername(response.data.username);
     };
     //Gets all users in messaging app for search feature
