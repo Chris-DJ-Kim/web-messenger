@@ -7,8 +7,9 @@ router.post("/", async function (req, res) {
   try {
     const { username, password } = req.body;
     const user = await User.verifyUser(username, password);
+
     const token = await user.generateAuthenticationToken(user);
-    //Also sends authentication cookie that lasts 1 hour
+    //Also sends authentication cookie that lasts 4 hours
     res
       .status(200)
       .cookie("authToken", token, {
