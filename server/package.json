@@ -3,7 +3,9 @@
   "version": "0.0.0",
   "private": true,
   "scripts": {
+    "start":"node ./bin/www",
     "dev": "nodemon ./bin/www",
+    "build": "cd client && npm run build",
     "debug": "nodemon  --inspect ./bin/www",
     "test": "NODE_ENV=test ./node_modules/.bin/mocha --exit --timeout 30000"
   },
@@ -17,11 +19,16 @@
     "mongoose": "^5.11.7",
     "morgan": "^1.10.0",
     "nodemon": "^2.0.6",
+    "socket.io": "^3.0.4",
+    "socket.io-client": "^3.0.4",
     "validator": "^13.5.2"
   },
   "devDependencies": {
     "chai": "^4.2.0",
     "chai-http": "^4.3.0",
     "mocha": "^8.2.1"
+  },
+  "engines": {
+    "node": "12.17.0"
   }
 }

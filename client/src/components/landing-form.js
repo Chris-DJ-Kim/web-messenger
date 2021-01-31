@@ -63,6 +63,7 @@ const LandingForm = (props) => {
             name="username"
             value={inputValues.username}
             onChange={handleChange}
+            autoComplete="off"
             fullWidth
           />
 
@@ -75,6 +76,7 @@ const LandingForm = (props) => {
               name="email"
               value={inputValues.email}
               onChange={handleChange}
+              autoComplete="off"
               fullWidth
             />
           ) : null}
@@ -86,6 +88,7 @@ const LandingForm = (props) => {
             name="password"
             value={inputValues.password}
             onChange={handleChange}
+            autoComplete="off"
             inputProps={inputProps}
             fullWidth
           />
