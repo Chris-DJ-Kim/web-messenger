@@ -6,7 +6,6 @@
     "start":"node ./bin/www",
     "dev": "nodemon ./bin/www",
     "build": "cd client && npm run build",
-
     "debug": "nodemon  --inspect ./bin/www",
     "test": "NODE_ENV=test ./node_modules/.bin/mocha --exit --timeout 30000"
   },
@@ -28,5 +27,8 @@
     "chai": "^4.2.0",
     "chai-http": "^4.3.0",
     "mocha": "^8.2.1"
+  },
+  "engines": {
+    "node": "12.17.0"
   }
 }
