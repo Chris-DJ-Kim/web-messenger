@@ -15,12 +15,13 @@ const LandingPage = (props) => {
 
   const baseUrl = process.env.REACT_APP_BASE_URL || "http://localhost:5001";
 
-  const submitForm = async (event, inputs) => {
+  const submitForm = async (event, url, inputs) => {
     event.preventDefault();
     try {
-      console.log(baseUrl, process.env);
-      console.log(inputs);
-      const response = await axios.post(baseUrl, inputs);
+      const response = await axios.post(`${baseUrl}${url}`, {
+        headers: { "Content-Type": "application/json" },
+        data: inputs,
+      });
       if (response.status === 201 || 200) setSignUpOrLoginSuccess(true);
     } catch (e) {}
   };

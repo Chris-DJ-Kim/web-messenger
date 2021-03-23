@@ -3,6 +3,7 @@ const { join } = require("path");
 const cookieParser = require("cookie-parser");
 const logger = require("morgan");
 
+const cors = require("cors");
 const pingRouter = require("./routes/ping");
 const signupRouter = require("./routes/signup");
 const loginRouter = require("./routes/login");
@@ -20,7 +21,8 @@ const app = express();
 const io = socket_io();
 
 const connectedUsers = [];
-
+app.use(cors());
+app.options("*", cors());
 io.on("connection", (socket) => {
   console.log("New user connected!");
   const conversationRoom = socket.handshake.query.roomId;
