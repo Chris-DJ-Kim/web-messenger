@@ -13,10 +13,14 @@ import { ReactComponent as Logo } from "../images/speechBubbleIcon.svg";
 const LandingPage = (props) => {
   const [signUpOrLoginSuccess, setSignUpOrLoginSuccess] = useState(false);
 
-  const submitForm = async (event, path, inputs) => {
+  const baseUrl = process.env.REACT_APP_BASE_URL || "http://localhost:5001";
+
+  const submitForm = async (event, inputs) => {
     event.preventDefault();
     try {
-      const response = await axios.post(path, inputs);
+      console.log(baseUrl, process.env);
+      console.log(inputs);
+      const response = await axios.post(baseUrl, inputs);
       if (response.status === 201 || 200) setSignUpOrLoginSuccess(true);
     } catch (e) {}
   };
