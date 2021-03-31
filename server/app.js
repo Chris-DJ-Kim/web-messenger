@@ -21,8 +21,19 @@ const app = express();
 const io = socket_io();
 
 const connectedUsers = [];
-app.use(cors());
-app.options("*", cors());
+// app.options("*", cors(origin));
+// app.use(cors());
+app.use(function (req, res, next) {
+  res.header("Access-Control-Allow-Origin", "*");
+  res.header("Access-Control-Allow-Methods", "GET,PUT,POST,DELETE,OPTIONS");
+  res.header("Access-Control-Allow-Credentials", "true");
+  res.header(
+    "Access-Control-Allow-Headers",
+    "Origin,X-Requested-With,Content-Type,Accept"
+  );
+  res.setHeader("Content-Type", "application/json");
+  next();
+});
 io.on("connection", (socket) => {
   console.log("New user connected!");
   const conversationRoom = socket.handshake.query.roomId;

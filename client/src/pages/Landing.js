@@ -19,7 +19,6 @@ const LandingPage = (props) => {
     event.preventDefault();
     try {
       const response = await axios.post(`${baseUrl}${url}`, {
-        headers: { "Content-Type": "application/json" },
         data: inputs,
       });
       if (response.status === 201 || 200) setSignUpOrLoginSuccess(true);
