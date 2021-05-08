@@ -22,7 +22,9 @@ const LandingPage = (props) => {
         data: inputs,
       });
       if (response.status === 201 || 200) setSignUpOrLoginSuccess(true);
-    } catch (e) {}
+    } catch (e) {
+      console.log(e);
+    }
   };
 
   //material-ui stuff

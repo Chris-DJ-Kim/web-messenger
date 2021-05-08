@@ -18,22 +18,35 @@ const db = require("./db");
 const { json, urlencoded } = express;
 
 const app = express();
-const io = socket_io();
+
+app.use(function (req, res, next) {
+  res.header("Access-Control-Allow-Origin", "*");
+  // res.header(
+  //   "Access-Control-Allow-Methods: GET, POST, PATCH, PUT, DELETE, OPTIONS"
+  // );
+  // res.header(
+  //   "Access-Control-Allow-Headers",
+  //   "Origin, Content-Type, X-Auth-Token"
+  // );
+  // res.header("Access-Control-Allow-Methods", "*");
+  res.header("Access-Control-Allow-Headers", "Content-Type");
+  // res.setHeader("Content-Type", "application/json");
+  next();
+});
+
+// app.use(cors());
+
+const io = require("socket.io")(http, {
+  cors: {
+    methods: ["GET", "PATCH", "POST", "PUT"],
+    origin: true,
+    headers: ["Content-Type"],
+  },
+});
 
 const connectedUsers = [];
 // app.options("*", cors(origin));
 // app.use(cors());
-app.use(function (req, res, next) {
-  res.header("Access-Control-Allow-Origin", "*");
-  res.header("Access-Control-Allow-Methods", "GET,PUT,POST,DELETE,OPTIONS");
-  res.header("Access-Control-Allow-Credentials", "true");
-  res.header(
-    "Access-Control-Allow-Headers",
-    "Origin,X-Requested-With,Content-Type,Accept"
-  );
-  res.setHeader("Content-Type", "application/json");
-  next();
-});
 io.on("connection", (socket) => {
   console.log("New user connected!");
   const conversationRoom = socket.handshake.query.roomId;
@@ -62,13 +75,13 @@ io.on("connection", (socket) => {
   });
 });
 
+// app.use(cors());
+
 app.use(logger("dev"));
 app.use(json());
 app.use(urlencoded({ extended: false }));
 app.use(cookieParser());
 app.use(express.static(join(__dirname, "public")));
-
-app.options("*", cors());
 
 app.use("/signup", signupRouter);
 app.use("/login", loginRouter);
