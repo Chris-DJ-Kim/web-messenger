@@ -68,6 +68,8 @@ app.use(urlencoded({ extended: false }));
 app.use(cookieParser());
 app.use(express.static(join(__dirname, "public")));
 
+app.options("*", cors());
+
 app.use("/signup", signupRouter);
 app.use("/login", loginRouter);
 app.use("/messages", auth, messagesRouter);
