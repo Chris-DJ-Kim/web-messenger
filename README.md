@@ -1,6 +1,16 @@
-# Express Starter
+# Web-Messenger
 
-This starter repo will be used for building applications using React, Material-UI, React-Router, Node, & Express.js.
+A real-time messaging platform created using the MERN stack and socket.io
+
+## The Login/Signup Page
+
+![Signup page](https://i.ibb.co/BfY8LV8/Web-messenger-preview.jpg)
+
+## Sending Messages
+
+Users can send messages in real time.
+This demonstration uses two instances of the app side by side.
+![Message Demonstration](https://i.ibb.co/bz368yk/web-messenger-gif.gif)
 
 ## Getting started
 
